@@ -1,0 +1,16 @@
+name: 'Checkout Branch'
+description: 'Checks out branch of PR/Push action'
+outputs:
+  branch-name:
+    description: "Branch Name"
+    value: ${{ steps.branch.outputs.branch-name }}
+runs:
+  using: "composite"
+  steps:
+    - name: Extract branch name
+      run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+      id: branch
+    - name: Checking out branch ${{ steps.branch.outputs.branch }}
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ steps.branch.outputs.branch }}
