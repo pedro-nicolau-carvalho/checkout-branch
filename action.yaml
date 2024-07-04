@@ -16,3 +16,4 @@ runs:
       with:
         ref: ${{ steps.branch.outputs.branch }}
         fetch-tags: true
+        fetch-depth: 10
